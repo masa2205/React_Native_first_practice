@@ -2,15 +2,24 @@ import React, {useState, useEffect} from 'react';
 import { StyleSheet, View, FlatList, SafeAreaView } from 'react-native';
 import ListItem from './components/ListItem';
 import dummyArticles from './dummies/articles';
+import axios from 'axios';
+
+const URL = 'https://newsapi.org/v2/top-headlines?country=jp&apiKey=3b3612d4fa654d1d87d021c03a23d72e'
 
 export default function App() {
     const [articles, setArticles] = useState([])
     useEffect(() => {
-      const timer = setTimeout(() => {
-        setArticles(dummyArticles);
-      },2000)
-      return () => clearTimeout(timer);
+      fetchArticles();
     }, []);
+
+    const fetchArticles = async () => {
+      try {
+        const response = await axios.get(URL);
+        setArticles(response.data.articles)
+      } catch (error) {
+        console.error(error);
+      }
+    }
     
     return (
       <SafeAreaView style={styles.container}>
