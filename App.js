@@ -6,7 +6,7 @@ import axios from 'axios';
 
 const URL = 'https://newsapi.org/v2/top-headlines?country=jp&apiKey=3b3612d4fa654d1d87d021c03a23d72e'
 
-export default function App() {
+export default App = () => {
     const [articles, setArticles] = useState([])
     useEffect(() => {
       fetchArticles();
